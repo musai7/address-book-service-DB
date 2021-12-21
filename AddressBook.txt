@@ -1,0 +1,244 @@
+---------------uc 1------------------
+// Ability to create address book service DB
+
+mysql> create database ADDRESS_BOOK_SERVICE
+    -> ;
+Query OK, 1 row affected (0.28 sec)
+
+--------------uc 2 -------------------
+ability to create addressbook table with first name last name.......
+
+mysql> create table AddressBook(
+    -> id int unsigned not null auto_increment,
+    -> FirstName varchar(50) not null,
+    -> LastName varchar(50) not null,
+    -> Address varchar(150),
+    -> city varchar(50),
+    -> state varchar(50),
+    -> Zip long not null,
+    -> PhoneNumber long not null,
+    -> email varchar(150) not null,
+    -> primary key (id)
+    -> );
+Query OK, 0 rows affected (1.75 sec)
+mysql> describe addressbook
+    -> ;
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| id          | int unsigned | NO   | PRI | NULL    | auto_increment |
+| FirstName   | varchar(50)  | NO   |     | NULL    |                |
+| LastName    | varchar(50)  | NO   |     | NULL    |                |
+| Address     | varchar(150) | YES  |     | NULL    |                |
+| city        | varchar(50)  | YES  |     | NULL    |                |
+| state       | varchar(50)  | YES  |     | NULL    |                |
+| Zip         | mediumtext   | NO   |     | NULL    |                |
+| PhoneNumber | mediumtext   | NO   |     | NULL    |                |
+| email       | varchar(150) | NO   |     | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
+9 rows in set (0.23 sec)
+
+
+--------------- uc 3-----------------
+//insert contacts into table
+
+mysql> insert into addressbook (firstname,lastname,address,city,state,zip,phonenumber,email) values ('musai','shankar','5-133 near gokulamba temple','ravulapalem','andhra pradesh','533274','8463985868','musaishankar307@gmail.com');
+Query OK, 1 row affected (0.24 sec)
+
+mysql> insert into addressbook (firstname,lastname,address,city,state,zip,phonenumber,email) values ('mani','gopisetti','5-121/2 near ramalayam temple','ravulapalem','andhra pradesh','533247','8499866701','manikantagopisetti2@gmail.com');
+Query OK, 1 row affected (0.12 sec)
+
+mysql> select * from addressbook;
++----+-----------+-----------+-------------------------------+-------------+----------------+--------+-------------+-------------------------------+
+| id | FirstName | LastName  | Address                       | city        | state          | Zip    | PhoneNumber | email                         |
++----+-----------+-----------+-------------------------------+-------------+----------------+--------+-------------+-------------------------------+
+|  1 | musai     | shankar   | 5-133 near gokulamba temple   | ravulapalem | andhra pradesh | 533274 | 8463985868  | musaishankar307@gmail.com     |
+|  2 | mani      | gopisetti | 5-121/2 near ramalayam temple | ravulapalem | andhra pradesh | 533247 | 8499866701  | manikantagopisetti2@gmail.com |
++----+-----------+-----------+-------------------------------+-------------+----------------+--------+-------------+-------------------------------+
+2 rows in set (0.00 sec)
+
+-----------------uc 4--------------------
+//Edit contacts
+
+mysql> update addressbook set
+    -> firstname = 'ram'
+    -> where id ='8';
+Query OK, 1 row affected (0.17 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update addressbook set lastname ='raj' where id = '8';
+Query OK, 1 row affected (0.20 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update addressbook set email ='raj@gamil.com' where id = '8';
+Query OK, 1 row affected (0.20 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
++----+-----------+-----------+-------------------------------+--------------+----------------+--------+-------------+-------------------------------+
+| id | FirstName | LastName  | Address                       | city         | state          | Zip    | PhoneNumber | email                         |
++----+-----------+-----------+-------------------------------+--------------+----------------+--------+-------------+-------------------------------+
+|  1 | musai     | shankar   | 5-133 near gokulamba temple   | ravulapalem  | andhra pradesh | 533274 | 8463985868  | musaishankar307@gmail.com     |
+|  2 | mani      | gopisetti | 5-121/2 near ramalayam temple | ravulapalem  | andhra pradesh | 533247 | 8499866701  | manikantagopisetti2@gmail.com |
+|  3 | dhana     | gorrela   | 6-201 near gokulamba temple   | ravulapalem  | andhra pradesh | 533274 | 9640611024  | dhanasai.1@gmail.com          |
+|  4 | balaji    | gorrela   | 6-201 near gokulamba temple   | ravulapalem  | andhra pradesh | 533274 | 9515455452  | balaji.3@gmail.com            |
+|  5 | dhanunjay | kummari   | 6-201 near saibab temple      | puttabarthi  | ap             | 533284 | 8529637410  | dhanunjay.1@gmail.com         |
+|  6 | santhoshi | badam     | 6-201 near gandhi chowk       | mahabubnagar | telangana      | 533284 | 8529637410  | santhoshi.1@gmail.com         |
+|  7 | abhishek  | rawane    | 5-121/2 devi chowk            | mumbai       | maharastra     | 600256 | 9876543210  | abhishek@gmail.com            |
+|  8 | ram       | raj       | 6-201 near gandhi chowk       | mahabubnagar | telangana      | 533284 | 8529637410  | raj@gamil.com                 |
+|  9 | empty     | badam     | 6-201 near gandhi chowk       | mahabubnagar | telangana      | 533284 | 8529637410  | santhoshi.1@gmail.com         |
++----+-----------+-----------+-------------------------------+--------------+----------------+--------+-------------+-------------------------------+
+9 rows in set (0.10 sec)
+
+-------------uc 5 ----------------------
+// delete contact 
+
+mysql> delete from addressbook where firstname = 'empty';
+Query OK, 1 row affected (0.28 sec)
+
+mysql> select * from addressbook;
++----+-----------+-----------+-------------------------------+--------------+----------------+--------+-------------+-------------------------------+
+| id | FirstName | LastName  | Address                       | city         | state          | Zip    | PhoneNumber | email                         |
++----+-----------+-----------+-------------------------------+--------------+----------------+--------+-------------+-------------------------------+
+|  1 | musai     | shankar   | 5-133 near gokulamba temple   | ravulapalem  | andhra pradesh | 533274 | 8463985868  | musaishankar307@gmail.com     |
+|  2 | mani      | gopisetti | 5-121/2 near ramalayam temple | ravulapalem  | andhra pradesh | 533247 | 8499866701  | manikantagopisetti2@gmail.com |
+|  3 | dhana     | gorrela   | 6-201 near gokulamba temple   | ravulapalem  | andhra pradesh | 533274 | 9640611024  | dhanasai.1@gmail.com          |
+|  4 | balaji    | gorrela   | 6-201 near gokulamba temple   | ravulapalem  | andhra pradesh | 533274 | 9515455452  | balaji.3@gmail.com            |
+|  5 | dhanunjay | kummari   | 6-201 near saibab temple      | puttabarthi  | ap             | 533284 | 8529637410  | dhanunjay.1@gmail.com         |
+|  6 | santhoshi | badam     | 6-201 near gandhi chowk       | mahabubnagar | telangana      | 533284 | 8529637410  | santhoshi.1@gmail.com         |
+|  7 | abhishek  | rawane    | 5-121/2 devi chowk            | mumbai       | maharastra     | 600256 | 9876543210  | abhishek@gmail.com            |
+|  8 | ram       | raj       | 6-201 near gandhi chowk       | mahabubnagar | telangana      | 533284 | 8529637410  | raj@gamil.com                 |
++----+-----------+-----------+-------------------------------+--------------+----------------+--------+-------------+-------------------------------+
+8 rows in set (0.00 sec)
+
+--------------uc 6---------------------
+
+mysql> select firstname from addressbook where city ='mumbai';
++-----------+
+| firstname |
++-----------+
+| abhishek  |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> select * from addressbook where state ='ap';
++----+-----------+----------+--------------------------+-------------+-------+--------+-------------+-----------------------+
+| id | FirstName | LastName | Address                  | city        | state | Zip    | PhoneNumber | email                 |
++----+-----------+----------+--------------------------+-------------+-------+--------+-------------+-----------------------+
+|  5 | dhanunjay | kummari  | 6-201 near saibab temple | puttabarthi | ap    | 533284 | 8529637410  | dhanunjay.1@gmail.com |
++----+-----------+----------+--------------------------+-------------+-------+--------+-------------+-----------------------+
+1 row in set (0.00 sec)
+
+----------------- uc 7 ---------------------
+
+mysql> select city,count(*) from addressbook where city = 'ravulapalem';
++-------------+----------+
+| city        | count(*) |
++-------------+----------+
+| ravulapalem |        4 |
++-------------+----------+
+1 row in set (0.00 sec)
+
+mysql> select state,count(*) from addressbook where state = 'andhra pradesh';
++----------------+----------+
+| state          | count(*) |
++----------------+----------+
+| andhra pradesh |        4 |
++----------------+----------+
+1 row in set (0.00 sec)
+
+--------------------------uc 8 -----------------------
+
+mysql> select * from addressbook where  city = 'ravulapalem' order by firstname;
++----+-----------+-----------+-------------------------------+-------------+----------------+--------+-------------+-------------------------------+
+| id | FirstName | LastName  | Address                       | city        | state          | Zip    | PhoneNumber | email                         |
++----+-----------+-----------+-------------------------------+-------------+----------------+--------+-------------+-------------------------------+
+|  4 | balaji    | gorrela   | 6-201 near gokulamba temple   | ravulapalem | andhra pradesh | 533274 | 9515455452  | balaji.3@gmail.com            |
+|  3 | dhana     | gorrela   | 6-201 near gokulamba temple   | ravulapalem | andhra pradesh | 533274 | 9640611024  | dhanasai.1@gmail.com          |
+|  2 | mani      | gopisetti | 5-121/2 near ramalayam temple | ravulapalem | andhra pradesh | 533247 | 8499866701  | manikantagopisetti2@gmail.com |
+|  1 | musai     | shankar   | 5-133 near gokulamba temple   | ravulapalem | andhra pradesh | 533274 | 8463985868  | musaishankar307@gmail.com     |
++----+-----------+-----------+-------------------------------+-------------+----------------+--------+-------------+-------------------------------+
+4 rows in set (0.00 sec)
+
+--------------uc 9 ------------------------------
+
+mysql> alter table addressbook add type varchar(50) after email
+    -> ;
+Query OK, 0 rows affected (1.65 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from addressbook;
++----+-----------+-----------+-------------------------------+--------------+----------------+--------+-------------+-------------------------------+------+
+| id | FirstName | LastName  | Address                       | city         | state          | Zip    | PhoneNumber | email                         | type |
++----+-----------+-----------+-------------------------------+--------------+----------------+--------+-------------+-------------------------------+------+
+|  1 | musai     | shankar   | 5-133 near gokulamba temple   | ravulapalem  | andhra pradesh | 533274 | 8463985868  | musaishankar307@gmail.com     | NULL |
+|  2 | mani      | gopisetti | 5-121/2 near ramalayam temple | ravulapalem  | andhra pradesh | 533247 | 8499866701  | manikantagopisetti2@gmail.com | NULL |
+|  3 | dhana     | gorrela   | 6-201 near gokulamba temple   | ravulapalem  | andhra pradesh | 533274 | 9640611024  | dhanasai.1@gmail.com          | NULL |
+|  4 | balaji    | gorrela   | 6-201 near gokulamba temple   | ravulapalem  | andhra pradesh | 533274 | 9515455452  | balaji.3@gmail.com            | NULL |
+|  5 | dhanunjay | kummari   | 6-201 near saibab temple      | puttabarthi  | ap             | 533284 | 8529637410  | dhanunjay.1@gmail.com         | NULL |
+|  6 | santhoshi | badam     | 6-201 near gandhi chowk       | mahabubnagar | telangana      | 533284 | 8529637410  | santhoshi.1@gmail.com         | NULL |
+|  7 | abhishek  | rawane    | 5-121/2 devi chowk            | mumbai       | maharastra     | 600256 | 9876543210  | abhishek@gmail.com            | NULL |
+|  8 | ram       | raj       | 6-201 near gandhi chowk       | mahabubnagar | telangana      | 533284 | 8529637410  | raj@gamil.com                 | NULL |
++----+-----------+-----------+-------------------------------+--------------+----------------+--------+-------------+-------------------------------+------+
+8 rows in set (0.00 sec)
+
+mysql> update addressbook set type = 'family' where firstname = 'mani';
+Query OK, 1 row affected (0.18 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update addressbook set type = 'friend' where firstname = 'gana';
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> update addressbook set type = 'friend' where firstname = 'dhana';
+Query OK, 1 row affected (0.14 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update addressbook set type = 'friend' where firstname = 'balaji';
+Query OK, 1 row affected (0.21 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update addressbook set type = 'profissional' where firstname = 'dhanunjay';
+Query OK, 1 row affected (0.20 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update addressbook set type = 'profissional' where firstname = 'santhoshi';
+Query OK, 1 row affected (0.08 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update addressbook set type = 'others' where firstname = 'abhishek';
+Query OK, 1 row affected (0.07 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from addressbook;
++----+-----------+-----------+-------------------------------+--------------+----------------+--------+-------------+-------------------------------+--------------+
+| id | FirstName | LastName  | Address                       | city         | state          | Zip    | PhoneNumber | email                         | type         |
++----+-----------+-----------+-------------------------------+--------------+----------------+--------+-------------+-------------------------------+--------------+
+|  1 | musai     | shankar   | 5-133 near gokulamba temple   | ravulapalem  | andhra pradesh | 533274 | 8463985868  | musaishankar307@gmail.com     | family       |
+|  2 | mani      | gopisetti | 5-121/2 near ramalayam temple | ravulapalem  | andhra pradesh | 533247 | 8499866701  | manikantagopisetti2@gmail.com | family       |
+|  3 | dhana     | gorrela   | 6-201 near gokulamba temple   | ravulapalem  | andhra pradesh | 533274 | 9640611024  | dhanasai.1@gmail.com          | friend       |
+|  4 | balaji    | gorrela   | 6-201 near gokulamba temple   | ravulapalem  | andhra pradesh | 533274 | 9515455452  | balaji.3@gmail.com            | friend       |
+|  5 | dhanunjay | kummari   | 6-201 near saibab temple      | puttabarthi  | ap             | 533284 | 8529637410  | dhanunjay.1@gmail.com         | profissional |
+|  6 | santhoshi | badam     | 6-201 near gandhi chowk       | mahabubnagar | telangana      | 533284 | 8529637410  | santhoshi.1@gmail.com         | profissional |
+|  7 | abhishek  | rawane    | 5-121/2 devi chowk            | mumbai       | maharastra     | 600256 | 9876543210  | abhishek@gmail.com            | others       |
+|  8 | ram       | raj       | 6-201 near gandhi chowk       | mahabubnagar | telangana      | 533284 | 8529637410  | raj@gamil.com                 | NULL         |
++----+-----------+-----------+-------------------------------+--------------+----------------+--------+-------------+-------------------------------+--------------+
+8 rows in set (0.00 sec)
+
+----------------uc 10----------------------
+
+mysql> select * from addressbook where type = 'family' order by firstname;
++----+-----------+-----------+-------------------------------+-------------+----------------+--------+-------------+-------------------------------+--------+
+| id | FirstName | LastName  | Address                       | city        | state          | Zip    | PhoneNumber | email                         | type   |
++----+-----------+-----------+-------------------------------+-------------+----------------+--------+-------------+-------------------------------+--------+
+|  2 | mani      | gopisetti | 5-121/2 near ramalayam temple | ravulapalem | andhra pradesh | 533247 | 8499866701  | manikantagopisetti2@gmail.com | family |
+|  1 | musai     | shankar   | 5-133 near gokulamba temple   | ravulapalem | andhra pradesh | 533274 | 8463985868  | musaishankar307@gmail.com     | family |
++----+-----------+-----------+-------------------------------+-------------+----------------+--------+-------------+-------------------------------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select type,count(*) from addressbook where type = 'family';
++--------+----------+
+| type   | count(*) |
++--------+----------+
+| family |        2 |
++--------+----------+
+1 row in set (0.00 sec)
